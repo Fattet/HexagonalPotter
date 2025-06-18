@@ -6,9 +6,14 @@ namespace HexagonalPotter.Tests
 {
     public class HexagonalPotterTests
     {
-        #pragma warning disable CA1859 // Using interface to follow hexagonal architecture
-        private readonly IBookPriceCalculator _calculator = new PotterPriceCalculator();
-        #pragma warning restore CA1859
+    #pragma warning disable CA1859 // Using interface to follow hexagonal architecture
+    private readonly IBookPriceCalculator _calculator = new PotterPriceCalculator(
+        new BestPriceStrategy(
+            new BasicDiscountStrategy(),
+            new GroupOf4FirstStrategy()
+        )
+    );
+    #pragma warning restore CA1859
 
         [Fact]
         public void TestBasics()
